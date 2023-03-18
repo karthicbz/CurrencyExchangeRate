@@ -1,10 +1,12 @@
 import { fetcher } from "./currency_fetcher";
+import swapCurrency from '../images/swap_round.svg';
 
 const contentItems = (()=>{
     const makeContainer = async ()=>{
         const container = document.createElement('div');
         container.appendChild(await divCreator.creator('Amount'));
         container.appendChild(await divCreator.creator('From'));
+        container.appendChild(imgElement());
         container.appendChild(await divCreator.creator('To'));
         container.appendChild(convertedTextDetails());
         container.appendChild(button());
@@ -69,6 +71,13 @@ const createOption = async (name)=>{
         list.appendChild(option);
     }
     return list;
+}
+
+const imgElement = ()=>{
+    const element = document.createElement('img');
+    element.src = swapCurrency;
+    element.className = 'swap-curr';
+    return element;
 }
 
 // createOption();
