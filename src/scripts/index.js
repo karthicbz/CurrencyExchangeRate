@@ -9,6 +9,19 @@ const appendContentItems = async ()=>{
 
 appendContentItems();
 
-document.getElementById('convert-button').addEventListener('click', ()=>{
-    fetcher.fetchAvailableCurrencies();
-})
+content.addEventListener('click', (e)=>{
+    if(e.target.className === 'From-input' || e.target.className === 'To-input'){
+        if(e.target.value !== ''){
+            e.target.value = '';
+        }
+    }
+
+    if(e.target.id === 'convert-button'){
+        const amountInput = content.querySelector('.Amount-input');
+        if(amountInput.value !== ''){
+            console.log(amountInput.value);
+        }else{
+            alert('Amount should not be empty');
+        }
+    }
+});
