@@ -22,12 +22,15 @@ const divCreator = (()=>{
         container.appendChild(header);
 
         const inputField = document.createElement('input');
+        inputField.type = 'text';
+        inputField.name = name+'-input';
         inputField.className = name+'-input';
+        inputField.setAttribute('list', name+'-currency-list');
         container.appendChild(inputField);
 
         if(name === 'From' || name==='To'){
-            const list = document.createElement('div');
-            list.className = name+'-currency-list';
+            const list = document.createElement('datalist');
+            list.id = name+'-currency-list';
             container.appendChild(list);
         }
 
