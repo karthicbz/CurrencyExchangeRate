@@ -1,9 +1,11 @@
+import { fetcher } from "./currency_fetcher";
+
 const contentItems = (()=>{
-    const makeContainer = ()=>{
+    const makeContainer = async ()=>{
         const container = document.createElement('div');
-        container.appendChild(divCreator.creator('Amount'));
-        container.appendChild(divCreator.creator('From'));
-        container.appendChild(divCreator.creator('To'));
+        container.appendChild(await divCreator.creator('Amount'));
+        container.appendChild(await divCreator.creator('From'));
+        container.appendChild(await divCreator.creator('To'));
         container.appendChild(convertedTextDetails());
         container.appendChild(button());
         return container;
@@ -12,7 +14,7 @@ const contentItems = (()=>{
 })();
 
 const divCreator = (()=>{
-    const creator = (name)=>{
+    const creator = async (name)=>{
         const container = document.createElement('div');
         // container.id = divName;
         
@@ -29,9 +31,7 @@ const divCreator = (()=>{
         container.appendChild(inputField);
 
         if(name === 'From' || name==='To'){
-            const list = document.createElement('datalist');
-            list.id = name+'-currency-list';
-            container.appendChild(list);
+            container.appendChild(await createOption(name));
         }
 
         return container;
@@ -58,5 +58,19 @@ const button = ()=>{
     convertButton.textContent = 'convert';
     return convertButton;
 }
+
+const createOption = async (name)=>{
+    const options = await fetcher.fetchAvailableCurrencies();
+    const list = document.createElement('datalist');
+    list.id = name+'-currency-list';
+    for(let key in options){
+        const option = document.createElement('option');
+        option.value = `${key}-${options[key]}`;
+        list.appendChild(option);
+    }
+    return list;
+}
+
+// createOption();
 
 export {contentItems};
