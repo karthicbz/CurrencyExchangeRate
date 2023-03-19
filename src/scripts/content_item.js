@@ -4,10 +4,13 @@ import swapCurrency from '../images/swap_round.svg';
 const contentItems = (()=>{
     const makeContainer = async ()=>{
         const container = document.createElement('div');
-        container.appendChild(await divCreator.creator('Amount'));
-        container.appendChild(await divCreator.creator('From'));
-        container.appendChild(imgElement());
-        container.appendChild(await divCreator.creator('To'));
+        const inputContainer = document.createElement('div');
+        inputContainer.id = 'inputContainer';
+        inputContainer.appendChild(await divCreator.creator('Amount'));
+        inputContainer.appendChild(await divCreator.creator('From'));
+        inputContainer.appendChild(imgElement());
+        inputContainer.appendChild(await divCreator.creator('To'));
+        container.appendChild(inputContainer);
         container.appendChild(convertedTextDetails());
         container.appendChild(button());
         return container;
@@ -67,7 +70,7 @@ const createOption = async (name)=>{
     list.id = name+'-currency-list';
     for(let key in options){
         const option = document.createElement('option');
-        option.value = `${key}-${options[key]}`;
+        option.textContent = `${key}-${options[key]}`;
         list.appendChild(option);
     }
     return list;

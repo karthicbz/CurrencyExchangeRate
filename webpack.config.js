@@ -18,7 +18,7 @@ module.exports={
     module:{
         rules:[
             {
-                test:'/\.css$/',
+                test:/\.css$/,
                 use:[
                     'style-loader',
                     'css-loader'
@@ -33,7 +33,7 @@ module.exports={
                 type: 'asset/resource',
             },
             {
-                test:'/\.html$/',
+                test:/\.html$/,
                 loader: 'html-loader',
             }
         ],
