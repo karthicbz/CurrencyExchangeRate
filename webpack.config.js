@@ -1,17 +1,26 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
+const cssMinimizer = require('css-minimizer-webpack-plugin');
+const terserPlugin = require('terser-webpack-plugin');
 
 module.exports={
-    mode:'development',
+    mode:'production',
     entry: './src/scripts/index.js',
     output:{
         filename: 'main.[hash].js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
+    optimization:{
+        minimizer:[new cssMinimizer(), new terserPlugin()],
+    },
     plugins:[
         new htmlWebpackPlugin({
             template: './src/index.html',
+        }),
+        new miniCssExtractPlugin({
+            filename: '[name].[hash].css',
         })
     ],
     devtool: 'inline-source-map',
@@ -20,7 +29,7 @@ module.exports={
             {
                 test:/\.css$/,
                 use:[
-                    'style-loader',
+                    miniCssExtractPlugin.loader,
                     'css-loader'
                 ],
             },
